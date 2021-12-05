@@ -1,7 +1,8 @@
 import numpy
 #esltra
 #numero
-def esnum(num):
+#parte 1
+'''def esnum(num):
     if num>="0" and num<="9":
         return True
     else:
@@ -93,7 +94,7 @@ def bites():
     
             #combits=combits+"1"
             #menbit=menbit+"0"
-'''if cero>uno:
+if cero>uno:
             combits=combits+"0" #no me acuerdo como juntar binarios ahorita XD
             menbit=menbit+"1"
         elif uno>cero:
