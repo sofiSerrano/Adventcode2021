@@ -19,40 +19,53 @@ def coordenadasArray(linea):
     i=0
     y1=0
     y2=0
-    while i<len(linea):
+    while i<len(linea) and (p1 not in lista or p2 not in lista):
         num=""
-        y1=0
-        y2=0
+        bandPunt=False
+        bandPunt1=False
+        bandPunt2=False
         while esnum(linea[i])!=False:
             num=num+linea[i]
             i=i+1
-        
         #p1
         if len(num)!=0 and j==0:
+            bandPunt=True
+            bandPunt1=True
             num=int(num)
             x1=num
             j=j+1
             p1.append(x1)
         elif len(num)!=0 and j==1:
+            bandPunt1=True
+            bandPunt=True
             num=int(num)
             y1=num
             j=j+1
             p1.append(y1)
             #print("punto1: ",p1)
-            lista.append(p1)
+        
         #p2
         elif len(num)!=0 and j==2:
+            bandPunt2=True
+            bandPunt=True
             num=int(num)
             x2=num
             j=j+1
             p2.append(x2)
+            
         elif len(num)!=0 and j==3:
+            bandPunt=True
+            bandPunt2=True
             num=int(num)
             y2=num
             j=j+1
             p2.append(y2)
+            if x1==x2 or y1==y2:
+                lista.append(p1)
+                lista.append(p2)
             #print("punto2: ",p2)
-            lista.append(p2)
+            
+            
         i=i+1
     return lista
             
@@ -63,7 +76,8 @@ def SegmentArray():
         seg=[]
         seg=coordenadasArray(linea)
         #print("segmento: ",seg)
-        listaSeg.append(seg)
+        if len(seg)!=0:
+            listaSeg.append(seg)
     return listaSeg
 
 #busca punto x max
@@ -168,17 +182,10 @@ def compararPuntos(p1,p2):
     return False
 
 def cuantasvecesSalio(listacomp,punto):
-    #me cuenta cuantas veces salio num en la listade Punts
-    '''for i in range(len(lista)):
-        punto=lista[i]
-        cont=0
-        for j in range(len(lista)):
-            if compararPuntos(lista[i],lista[j])==True: #son iguales
-                cont=cont+1'''
-        #print("el punto {} se repite {} veces".format(lista[i],cont))
     cont=0
     for i in range(len(listacomp)):
-        if  compararPuntos(listacomp[i],punto)==True:
+        #if compararPuntos(listacomp[i],punto)==True:
+        if listacomp[i][0]==punto[0] and listacomp[i][1]==punto[1]:
             cont=cont+1
     return cont
 '------------------------------------------------------------------------'
@@ -194,7 +201,7 @@ def diagram():
     for f in range(ymax):
         matrc=[]
         for c in range(xmax):
-            matrc.append(".")
+            matrc.append(0)
         print(matrc)
         matrf.append(matrc)
     
@@ -215,6 +222,7 @@ def diagram():
                 if cont>0:
                     matrf[f1][c1]=str(cont)
             print(matrf[f1][c1],end=", ")
+            
         print("\n")
     
 diagram()
