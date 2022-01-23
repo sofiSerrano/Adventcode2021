@@ -75,7 +75,8 @@ def compararPuntos(p1,p2):
         return 2
     return cont
 
-def cuantasvecesSalio(lista):
+def cuantasvecesSalio():
+    lista=generarPuntos(p1,p2,listap)
     for i in range(len(lista)):
         punto=lista[i]
         cont=0
@@ -85,8 +86,18 @@ def cuantasvecesSalio(lista):
         print("el punto {} se repite {} veces".format(lista[i],cont))
     
 print("vemos cuantas veces salio cada uno: ")
-cuantasvecesSalio(listap)
-
+#cuantasvecesSalio()
+def imprimir():
+    matrf=[]
+    for f in range(10):
+        matrc=[]
+        for c in range(10):
+            matrc.append(0)
+            print("0",end=",")
+        print("\n")
+        matrf.append(matrc)
+imprimir()
+    
                     
         
     

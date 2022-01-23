@@ -97,6 +97,8 @@ def generarPuntos(p1,p2,listap):
     lista.append(p1)
     lista.append(p2)
     listap.append(p2)
+    print("punto:",p1)
+    print("punto:",p2)
     mayx=p2[0]
     menx=p1[0]
     if p1[0]>p2[0]:
@@ -157,46 +159,62 @@ def generarPuntos(p1,p2,listap):
 
 def compararPuntos(p1,p2):
     cont=0
-    if p1[0]==p2[1]:
+    if p1[0]==p2[0]:
         cont=cont+1
     if p1[1]==p2[1]:
         cont=cont+1
     elif cont==2:
-        return 2
-    return cont
+        return True
+    return False
 
-def cuantasvecesSalio(lista):
-    for i in range(len(lista)):
+def cuantasvecesSalio(listacomp,punto):
+    #me cuenta cuantas veces salio num en la listade Punts
+    '''for i in range(len(lista)):
         punto=lista[i]
         cont=0
         for j in range(len(lista)):
-            if compararPuntos(lista[i],lista[j])==2:
-                cont=cont+1
-        print("el punto {} se repite {} veces".format(lista[i],cont))
+            if compararPuntos(lista[i],lista[j])==True: #son iguales
+                cont=cont+1'''
+        #print("el punto {} se repite {} veces".format(lista[i],cont))
+    cont=0
+    for i in range(len(listacomp)):
+        if  compararPuntos(listacomp[i],punto)==True:
+            cont=cont+1
+    return cont
 '------------------------------------------------------------------------'
 
 def diagram():
     listaseg=SegmentArray()
     print("punto x may es :", pxmax(listaseg))
     print("punto y may es :", pymax(listaseg))
-    
     #imprecion de diagram de 0
-    
     xmax=pxmax(listaseg)
     ymax=pymax(listaseg)
     matrf=[]
     for f in range(ymax):
         matrc=[]
         for c in range(xmax):
-            matrc.append(0)
+            matrc.append(".")
         print(matrc)
         matrf.append(matrc)
     
     print('---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------')
-    #junta los puntos de todos los puntos intermedios
+    #junta en una lista todos los puntos intermedios
     listaPunts=[]
     for i in range(len(listaseg)):
         p1=listaseg[i][0]
         p2=listaseg[i][1]
         listaPunts=generarPuntos(p1,p2,listaPunts)
+        print("-------------------------------")
+    #los analizo en la matriz de 0
+    for f1 in range(len(matrf)):
+        for c1 in range(len(matrf[f1])):
+            punto=[c1,f1]#posicion de puntos
+            if punto in listaPunts:
+                cont=cuantasvecesSalio(listaPunts,punto)
+                if cont>0:
+                    matrf[f1][c1]=str(cont)
+            print(matrf[f1][c1],end=", ")
+        print("\n")
     
+diagram()
